@@ -1,4 +1,4 @@
-package com.alekseibykau.report;
+package com.alekseibykau.report.dto;
 
 import com.alekseibykau.transaction.entity.Transaction;
 

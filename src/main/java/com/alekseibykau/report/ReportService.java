@@ -1,5 +1,6 @@
 package com.alekseibykau.report;
 
+import com.alekseibykau.report.dto.ReportResponse;
 import com.alekseibykau.transaction.TransactionRepository;
 import com.alekseibykau.transaction.entity.Transaction;
 import lombok.AllArgsConstructor;

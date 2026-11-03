@@ -1,5 +1,6 @@
 package com.alekseibykau.report;
 
+import com.alekseibykau.report.dto.ReportResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
