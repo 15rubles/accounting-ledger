@@ -7,4 +7,4 @@ export const getPeriodReport = (period: ReportPeriod) =>
   api<ReportResponse>(`/reports/${period}`)
 
 export const getVendorReport = (vendor: string) =>
-  api<ReportResponse>(`/reports/vendor?vendor=${encodeURIComponent(vendor)}`)
+  api<ReportResponse>(`/reports?vendor=${encodeURIComponent(vendor)}`)
