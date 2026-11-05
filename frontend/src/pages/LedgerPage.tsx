@@ -1,3 +1,42 @@
+import { useState } from 'react'
+import { useQuery } from '@tanstack/react-query'
+import { getTransactions } from '../api/transactions'
+import TransactionTable from '../components/TransactionTable'
+import type { TransactionType } from '../types'
+
+const TABS: { label: string; value?: TransactionType }[] = [
+  { label: 'All' },
+  { label: 'Deposits', value: 'DEPOSIT' },
+  { label: 'Payments', value: 'PAYMENT' },
+]
+
 export default function LedgerPage() {
-  return ( <>placeholder</>)
+  const [type, setType] = useState<TransactionType | undefined>()
+
+  const { data, isLoading, error } = useQuery({
+    queryKey: ['transactions', type],
+    queryFn: () => getTransactions(type),
+  })
+
+  return (
+    <>
+      <h1>Ledger</h1>
+
+      <div className="tabs">
+        {TABS.map((tab) => (
+          <button
+            key={tab.label}
+            className={type === tab.value ? 'active' : ''}
+            onClick={() => setType(tab.value)}
+          >
+            {tab.label}
+          </button>
+        ))}
+      </div>
+
+      {isLoading && <p className="muted">Loading...</p>}
+      {error && <p className="error">{error.message}</p>}
+      {data && <TransactionTable transactions={data} />}
+    </>
+  )
 }
