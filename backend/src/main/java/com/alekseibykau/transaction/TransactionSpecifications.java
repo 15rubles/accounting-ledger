@@ -30,8 +30,8 @@ public final class TransactionSpecifications {
                         "%" + c.description().toLowerCase() + "%"));
             }
             if (hasText(c.vendor())) {
-                predicates.add(cb.equal(
-                        cb.lower(root.get("vendor")), c.vendor().toLowerCase()));
+                predicates.add(cb.like(
+                        cb.lower(root.get("vendor")),"%" + c.vendor().toLowerCase() + "%"));
             }
             if (c.minAmount() != null) {
                 predicates.add(cb.greaterThanOrEqualTo(root.get("amount"), c.minAmount()));
