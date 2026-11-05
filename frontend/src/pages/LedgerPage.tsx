@@ -3,6 +3,7 @@ import { useQuery } from '@tanstack/react-query'
 import { getTransactions } from '../api/transactions'
 import TransactionTable from '../components/TransactionTable'
 import type { TransactionType } from '../types'
+import TransactionForm from '../components/TransactionForm'
 
 const TABS: { label: string; value?: TransactionType }[] = [
   { label: 'All' },
@@ -13,6 +14,8 @@ const TABS: { label: string; value?: TransactionType }[] = [
 export default function LedgerPage() {
   const [type, setType] = useState<TransactionType | undefined>()
 
+  const [formType, setFormType] = useState<TransactionType | null>(null)
+
   const { data, isLoading, error } = useQuery({
     queryKey: ['transactions', type],
     queryFn: () => getTransactions(type),
@@ -21,6 +24,20 @@ export default function LedgerPage() {
   return (
     <>
       <h1>Ledger</h1>
+
+      <div className="row">
+        <button className="primary" onClick={() => setFormType('DEPOSIT')}>+ Add Deposit</button>
+        <button className="primary" onClick={() => setFormType('PAYMENT')}>- Make Payment</button>
+      </div>
+
+      {formType && (
+        <TransactionForm
+            key={formType}
+            type={formType}
+            onDone={() => setFormType(null)}
+            onCancel={() => setFormType(null)}
+        />
+      )}
 
       <div className="tabs">
         {TABS.map((tab) => (
