@@ -1,5 +1,6 @@
 package com.alekseibykau.report.dto;
 
+import com.alekseibykau.transaction.dto.TransactionResponse;
 import com.alekseibykau.transaction.entity.Transaction;
 
 import java.math.BigDecimal;
@@ -13,5 +14,5 @@ public record ReportResponse(
         BigDecimal totalDeposits,
         BigDecimal totalPayments,
         BigDecimal net,
-        List<Transaction> transactions
+        List<TransactionResponse> transactions
 ) {}

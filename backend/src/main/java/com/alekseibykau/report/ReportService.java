@@ -2,6 +2,7 @@ package com.alekseibykau.report;
 
 import com.alekseibykau.report.dto.ReportResponse;
 import com.alekseibykau.transaction.TransactionRepository;
+import com.alekseibykau.transaction.dto.TransactionResponse;
 import com.alekseibykau.transaction.entity.Transaction;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Sort;
@@ -43,9 +44,11 @@ public class ReportService {
 
     private ReportResponse buildReport(String title, LocalDate from, LocalDate to,
                                        List<Transaction> transactions) {
+        List<TransactionResponse> responses = transactions.stream()
+                                                .map(TransactionResponse::from).toList();
         BigDecimal deposits = sumDeposits(transactions);
         BigDecimal payments = sumPayments(transactions);
-        return new ReportResponse(title, from, to, deposits, payments, deposits.add(payments), transactions);
+        return new ReportResponse(title, from, to, deposits, payments, deposits.add(payments), responses);
     }
 
     private BigDecimal sumDeposits(List<Transaction> transactions) {
